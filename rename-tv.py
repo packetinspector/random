@@ -13,11 +13,8 @@ except:
     sys.exit(1)
 
 # continue script
-dir_final = '/Users/joe/misc/tvshows/'
-dir_final_left = '/Users/joe/misc/testing/'
-
-#dir_final = '/home/files/tvshows/'
-#dir_final_left = '/home/files/sabnzb/downloads/complete/'
+dir_final = '/final/directory/tvshows/'
+dir_final_left = '/path/to/leftovers/'
 
 movie_extensions = ['avi', 'mkv', 'wmv', 'mp4', 'ts', 'img', 'iso', 'sub', 'idx', 'srt']
 def_remove = ['jpeg', 'jpg', 'url', 'exe', 'png']
