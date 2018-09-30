@@ -16,7 +16,7 @@ $('table tr.parent').on('click', function(e) {
    e.preventDefault();
    $(this).nextUntil('.parent').toggle(); 
 });</script>'''
-API_KEY = ""
+API_KEY = "
 url = ""
 fuzziness = 65
 
@@ -78,11 +78,11 @@ def indent_table(a):
     # Loop
     for x in a:
         t = x.pop()
-        output = output + "<tr class=\"parent\"><td><b><a href='{}'>{}</a> [{} hours]</b></td></tr>".format(t['link'], t['title'], t['age'])
+        output = output + "<tr class=\"parent\"><td><b><a href='{link}'>{title}</a> [{age} hours]</b></td></tr>".format(**t)
         # If after pop, then indent all the others
         if (len(x) != 0):
             for y in x:
-                output = output + "<tr class=\"child\"><td></td><td>{} [{} hours]</td></tr>".format(y['title'], y['age'])
+                output = output + "<tr class=\"child\"><td></td><td>{title} [{age} hours]</td></tr>".format(**y)
     output = output + '</table>'
     return str(output)
 
