@@ -35,8 +35,9 @@ def offline_titles():
 
 
 def remove_things(s):
-    # Remove things that won't be unique to increase matching
-    return s.replace('hevc', '').replace('HEVC', '').replace('x265-MeGusta', '').replace('x265', '').replace('720p', '').replace('1080p', '')
+    # Remove things that won't be unique to increase match
+    p = re.compile('hevc|x265-MeGusta|x265|1080p|720p', re.IGNORECASE)
+    return p.sub('', s)
 
 
 def online_titles():
