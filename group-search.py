@@ -34,7 +34,7 @@ class Serve(http.server.BaseHTTPRequestHandler):
 def offline_titles():
     with open('test.json', 'r') as f:
         input_json = json.load(f)
-    return [{'title': x['title'], 'gtitle': remove_things(x['title']), 'age': diff_date(x['pubDate'])} for x in input_json['item']]
+    return process_results(input_json)
 
 
 def diff_date(d):
@@ -47,15 +47,19 @@ def remove_things(s):
     return p.sub('', s)
 
 
+def process_results(input_json):
+    return [{'title': x['title'], 'gtitle': remove_things(x['title']), 'link': x['guid']['text'], 'age': diff_date(x['pubDate'])} for x in input_json['item']]
+
+
 def online_titles():
     print("Fetching Search Results...")
     querystring = {"t": "search", "q": "hevc 1080p", "o": "json", "apikey": API_KEY, "cat": 5000}
     input_json = requests.request("GET", url, params=querystring).json()
-    ten80 = [{'title': x['title'], 'gtitle': remove_things(x['title']), 'age': diff_date(x['pubDate'])} for x in input_json['item']]
+    ten80 = process_results(input_json)
     # Query again and combine
     querystring = {"t": "search", "q": "hevc", "o": "json", "apikey": API_KEY, "cat": 5000}
     input_json = requests.request("GET", url, params=querystring).json()
-    reg = [{'title': x['title'], 'gtitle': remove_things(x['title']), 'age': diff_date(x['pubDate'])} for x in input_json['item']]
+    reg = process_results(input_json)
     return ten80 + reg
 
 
@@ -64,7 +68,7 @@ def indent_table(a):
     # Loop
     for x in a:
         t = x.pop()
-        output = output + "<tr><td><b>{} [{} hours]</b></td></tr>".format(t['title'], t['age'])
+        output = output + "<tr><td><b><a href='{}'>{}</a> [{} hours]</b></td></tr>".format(t['link'], t['title'], t['age'])
         # If after pop, then indent all the others
         if (len(x) != 0):
             for y in x:
