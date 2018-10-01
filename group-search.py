@@ -101,7 +101,7 @@ def sab_link(link):
 def browse_titles():
     print("Browsing...")
     cats = [5040, 5010, 2040]
-    nz_rss_url = 'https://nzb.cat/rss'
+    nz_rss_url = 'https://nzb/rss'
     browse_all = []
     for cat in cats:
         querystring = {"t": cat, "i": 22730, "o": "json", "r": NZ_API_KEY, "num": 50}
