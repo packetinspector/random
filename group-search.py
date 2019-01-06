@@ -68,7 +68,7 @@ def offline_titles():
 
 
 def diff_date(d):
-    return round((datetime.datetime.now(datetime.timezone.utc) - parser.parse(d)).seconds / 3600, 1)
+    return round((datetime.datetime.now(datetime.timezone.utc) - parser.parse(d)).total_seconds() / 3600, 1)
 
 
 def remove_things(s):
